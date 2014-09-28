@@ -1,0 +1,42 @@
+# Project: Opdracht 4.3
+# Makefile created by Dev-C++ 5.3.0.3
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+RES      = obj/Opdracht_4.3_private.res
+OBJ      = obj/main.o obj/jcmes.o obj/douwe.o obj/human_player.o $(RES)
+LINKOBJ  = obj/main.o obj/jcmes.o obj/douwe.o obj/human_player.o $(RES)
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc obj/card.o obj/deck.o obj/default_player.o obj/hearts.o obj/trick.o  -m32 -g3
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+BIN      = "Opdracht 4.3.exe"
+CXXFLAGS = $(CXXINCS)  -m32 -Wall -Wextra -pedantic -g3 -pipe
+CFLAGS   = $(INCS)  -m32 -Wall -Wextra -pedantic -g3 -pipe
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+obj/main.o: main.cpp
+	$(CPP) -c main.cpp -o obj/main.o $(CXXFLAGS)
+
+obj/jcmes.o: jcmes.cpp
+	$(CPP) -c jcmes.cpp -o obj/jcmes.o $(CXXFLAGS)
+
+obj/douwe.o: douwe.cpp
+	$(CPP) -c douwe.cpp -o obj/douwe.o $(CXXFLAGS)
+
+obj/human_player.o: human_player.cpp
+	$(CPP) -c human_player.cpp -o obj/human_player.o $(CXXFLAGS)
+
+obj/Opdracht_4.3_private.res: Opdracht_4.3_private.rc 
+	$(WINDRES) -i Opdracht_4.3_private.rc -F pe-i386 --input-format=rc -o obj/Opdracht_4.3_private.res -O coff 
